@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package com.lanchonete.Model;
 
 /**
  *
  * @author kener_000
  */
 public class Bebida {
-    
+
     private int id_bebida;
     private String nome;
     private String descricao;
@@ -83,6 +83,6 @@ public class Bebida {
     public void setFg_ativo(int fg_ativo) {
         this.fg_ativo = fg_ativo;
     }
-    
-    
+
+
 }

@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoIngrediente;
-import Helpers.ValidadorCookie;
-import Model.Ingrediente;
+import com.lanchonete.DAO.DaoIngrediente;
+import com.lanchonete.Helpers.ValidadorCookie;
+import com.lanchonete.Model.Ingrediente;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,24 +37,24 @@ public class getIngredientes extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        
+
         ////////Validar Cookie
         boolean resultado = false;
-        
+
         try{
         Cookie[] cookies = request.getCookies();
         ValidadorCookie validar = new ValidadorCookie();
-        
+
         resultado = validar.validarFuncionario(cookies);
         }catch(java.lang.NullPointerException e){System.out.println(e);}
         //////////////
-        
+
         if(resultado){
-            
+
             DaoIngrediente ingredienteDAO = new DaoIngrediente();
-            
+
             List<Ingrediente> ingredientes = ingredienteDAO.listarTodos();
-            
+
             Gson gson = new Gson();
             String json = gson.toJson(ingredientes);
 

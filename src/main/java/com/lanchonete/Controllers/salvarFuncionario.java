@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoFuncionario;
-import Helpers.ValidadorCookie;
-import Model.Funcionario;
+import com.lanchonete.DAO.DaoFuncionario;
+import com.lanchonete.Helpers.ValidadorCookie;
+import com.lanchonete.Model.Funcionario;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -46,22 +46,22 @@ public class salvarFuncionario extends HttpServlet {
         String ID = "1";
         ////////Validar Cookie
         boolean resultado = false;
-        
+
         try{
         Cookie[] cookies = request.getCookies();
         ValidadorCookie validar = new ValidadorCookie();
-        
+
         ID = validar.getCookieIdFuncionario(cookies);
         resultado = validar.validarFuncionario(cookies);
         }catch(java.lang.NullPointerException e){System.out.println(e);}
         //////////////
-        
+
         if ((br != null) && resultado) {
             json = br.readLine();
-            byte[] bytes = json.getBytes(ISO_8859_1); 
-            String jsonStr = new String(bytes, UTF_8);            
+            byte[] bytes = json.getBytes(ISO_8859_1);
+            String jsonStr = new String(bytes, UTF_8);
             JSONObject dados = new JSONObject(jsonStr);
-            
+
             Funcionario funcionario = new Funcionario();
             funcionario.setCad_por(Integer.valueOf(ID));
             funcionario.setNome(dados.getString("nome"));
@@ -71,10 +71,10 @@ public class salvarFuncionario extends HttpServlet {
             funcionario.setSenha(dados.getString("senhaFuncionario"));
             funcionario.setSobrenome("sobrenome");
             funcionario.setFg_ativo(1);
-            
+
             DaoFuncionario funcionarioDAO = new DaoFuncionario();
             funcionarioDAO.salvar(funcionario);
-            
+
             try (PrintWriter out = response.getWriter()) {
             out.println("Funcionario Cadastrado!");
             }

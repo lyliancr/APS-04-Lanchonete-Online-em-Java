@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package com.lanchonete.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DaoUtil {
-    
+
     public Connection conecta(){
         try{
             Class.forName("org.postgresql.Driver");
@@ -21,5 +21,5 @@ public class DaoUtil {
             throw new RuntimeException(e);
         }
     }
-    
+
 }

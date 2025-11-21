@@ -1,6 +1,6 @@
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoStatusLanchonete;
+import com.lanchonete.DAO.DaoStatusLanchonete;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;

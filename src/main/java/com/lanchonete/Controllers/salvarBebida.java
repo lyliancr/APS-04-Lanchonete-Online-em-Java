@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoBebida;
-import Helpers.ValidadorCookie;
-import Model.Bebida;
+import com.lanchonete.DAO.DaoBebida;
+import com.lanchonete.Model.Bebida;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,7 +14,6 @@ import java.io.PrintWriter;
 import static java.nio.charset.StandardCharsets.ISO_8859_1;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,16 +41,16 @@ public class salvarBebida extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
         String json = "";
-        
+
         // Removendo a validação de cookie para facilitar a adição de bebidas
         boolean resultado = true;
-        
+
         if (br != null) {
             json = br.readLine();
-            byte[] bytes = json.getBytes(ISO_8859_1); 
-            String jsonStr = new String(bytes, UTF_8);            
+            byte[] bytes = json.getBytes(ISO_8859_1);
+            String jsonStr = new String(bytes, UTF_8);
             JSONObject dados = new JSONObject(jsonStr);
-            
+
             Bebida bebida = new Bebida();
             bebida.setNome(dados.getString("nome"));
             bebida.setDescricao(dados.getString("descricao"));
@@ -61,10 +59,10 @@ public class salvarBebida extends HttpServlet {
             bebida.setValor_venda(Double.parseDouble(dados.getString("ValorVenda")));
             bebida.setTipo(dados.getString("tipo"));
             bebida.setFg_ativo(1);
-            
+
             DaoBebida bebidaDAO = new DaoBebida();
             bebidaDAO.salvar(bebida);
-            
+
             try (PrintWriter out = response.getWriter()) {
             out.println("Bebida Salva!");
             }

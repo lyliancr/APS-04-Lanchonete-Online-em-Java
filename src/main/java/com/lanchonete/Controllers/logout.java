@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package com.lanchonete.Controllers;
 
-import Helpers.ValidadorCookie;
+import com.lanchonete.Helpers.ValidadorCookie;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.Instant;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +32,7 @@ public class logout extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         try{
         Cookie[] cookies = request.getCookies();
         ValidadorCookie validar = new ValidadorCookie();
@@ -45,7 +44,7 @@ public class logout extends HttpServlet {
         response.addCookie(cookie);
         response.addCookie(cookie2);
         }catch(java.lang.NullPointerException e){System.out.println(e);}
-        
+
         try (PrintWriter out = response.getWriter()) {
            out.print("Deslogado");
         }

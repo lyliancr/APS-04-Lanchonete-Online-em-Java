@@ -1,8 +1,8 @@
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoIngrediente;
-import Helpers.ValidadorCookie;
-import Model.Ingrediente;
+import com.lanchonete.DAO.DaoIngrediente;
+import com.lanchonete.Helpers.ValidadorCookie;
+import com.lanchonete.Model.Ingrediente;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;

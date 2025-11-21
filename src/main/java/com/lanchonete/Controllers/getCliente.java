@@ -1,10 +1,10 @@
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoCliente;
-import DAO.DaoEndereco;
-import Helpers.ValidadorCookie;
-import Model.Cliente;
-import Model.Endereco;
+import com.lanchonete.DAO.DaoCliente;
+import com.lanchonete.DAO.DaoEndereco;
+import com.lanchonete.Helpers.ValidadorCookie;
+import com.lanchonete.Model.Cliente;
+import com.lanchonete.Model.Endereco;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,35 +33,35 @@ public class getCliente extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        
+
         ////////Validar Cookie
         boolean resultado = false;
-        
+
         try{
         Cookie[] cookies = request.getCookies();
         ValidadorCookie validar = new ValidadorCookie();
-        
+
         resultado = validar.validar(cookies);
         }catch(java.lang.NullPointerException e){System.out.println(e);}
         //////////////
-        
+
         if(resultado){
-            
+
             DaoCliente clienteDao = new DaoCliente();
-            
+
             DaoEndereco enderecoDao = new DaoEndereco();
             ValidadorCookie validar = new ValidadorCookie();
-            
+
             Cookie[] cookies = request.getCookies();
             String ID = validar.getCookieIdCliente(cookies);
-           
+
             Cliente cliente = clienteDao.pesquisaPorID(ID);
             Endereco endereco = enderecoDao.pesquisarEnderecoPorID(cliente.getId_cliente());
-            
+
             Object[] arr = new Object[2];
             arr[0] = cliente;
             arr[1] = endereco;
-            
+
             Gson gson = new Gson();
             String json = gson.toJson(arr);
 

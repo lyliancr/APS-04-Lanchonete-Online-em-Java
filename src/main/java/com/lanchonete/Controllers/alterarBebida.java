@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoBebida;
-import Helpers.ValidadorCookie;
-import Model.Bebida;
+import com.lanchonete.DAO.DaoBebida;
+import com.lanchonete.Helpers.ValidadorCookie;
+import com.lanchonete.Model.Bebida;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -43,24 +43,24 @@ public class alterarBebida extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
         String json = "";
-        
+
         ////////Validar Cookie
         boolean resultado = false;
-        
+
         try{
         Cookie[] cookies = request.getCookies();
         ValidadorCookie validar = new ValidadorCookie();
-        
+
         resultado = validar.validarFuncionario(cookies);
         }catch(java.lang.NullPointerException e){System.out.println(e);}
         //////////////
-        
+
         if ((br != null) && resultado) {
             json = br.readLine();
-            byte[] bytes = json.getBytes(ISO_8859_1); 
-            String jsonStr = new String(bytes, UTF_8);            
+            byte[] bytes = json.getBytes(ISO_8859_1);
+            String jsonStr = new String(bytes, UTF_8);
             JSONObject dados = new JSONObject(jsonStr);
-            
+
             Bebida bebida = new Bebida();
             bebida.setId_bebida(dados.getInt("id"));
             bebida.setNome(dados.getString("nome"));
@@ -70,10 +70,10 @@ public class alterarBebida extends HttpServlet {
             bebida.setValor_venda(dados.getDouble("ValorVenda"));
             bebida.setTipo(dados.getString("tipo"));
             bebida.setFg_ativo(1);
-            
+
             DaoBebida bebidaDAO = new DaoBebida();
             bebidaDAO.alterar(bebida);
-            
+
             try (PrintWriter out = response.getWriter()) {
             out.println("Bebida Alterada!");
             }

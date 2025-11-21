@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoCliente;
-import Model.Cliente;
+import com.lanchonete.DAO.DaoCliente;
+import com.lanchonete.Model.Cliente;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,16 +35,16 @@ public class tabela extends HttpServlet {
         throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        
+
         //Esse é o Servlet pra retornar os dados da Tabela, aqui ele instancia um DAO dos clientes
         //e lista todos eles
         DaoCliente clienteDao = new DaoCliente();
         List<Cliente> clientes = clienteDao.listarTodos();
-        
+
         //Logo em seguida, ele utiliza-se da biblioteca Gson pra transformar os Objetos retornados em um JSON
         Gson gson = new Gson();
         String json = gson.toJson(clientes);
-                
+
         try (PrintWriter out = response.getWriter()) {
             //E Aqui dentro ele envia esse JSON para o Cliente
             out.print(json);

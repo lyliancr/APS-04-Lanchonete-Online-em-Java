@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package com.lanchonete.Model;
 
 /**
  *
  * @author kener_000
  */
 public class Endereco {
-    
+
     private int id_endereco;
     private String rua;
     private String bairro;
@@ -74,7 +74,7 @@ public class Endereco {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-   
-    
-    
+
+
+
 }

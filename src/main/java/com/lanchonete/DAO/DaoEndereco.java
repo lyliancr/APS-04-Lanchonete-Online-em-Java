@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package com.lanchonete.DAO;
 
-import Model.Endereco;
+import com.lanchonete.Model.Endereco;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,11 +21,11 @@ public class DaoEndereco {
     public DaoEndereco() {
         this.conecta = new DaoUtil().conecta();
     }
-    
+
     public void salvar(Endereco endereco){
         String sql = "INSERT INTO tb_enderecos(rua, bairro, numero, complemento, cidade, estado) "
                 + "VALUES(?,?,?,?,?,?)";
-        
+
         try{
             PreparedStatement stmt = conecta.prepareStatement(sql);
             stmt.setString(1, endereco.getRua());
@@ -34,16 +34,16 @@ public class DaoEndereco {
             stmt.setString(4, endereco.getComplemento());
             stmt.setString(5, endereco.getCidade());
             stmt.setString(6, endereco.getEstado());
-            
+
             stmt.execute();
             stmt.close();
-            
-            
+
+
         }catch(Exception e){
             throw new RuntimeException(e);
         }
     }
-    
+
     public int validaEndereco(Endereco endereco){
         String sql = "SELECT id_endereco "
                 + "FROM tb_enderecos "
@@ -61,24 +61,24 @@ public class DaoEndereco {
             stmt.setString(3, endereco.getBairro());
             stmt.setString(4, endereco.getCidade());
             stmt.setString(5, endereco.getEstado());
-            
+
             ResultSet rs;
             rs = stmt.executeQuery();
             if(rs.next()){
                 end.setId_endereco(rs.getInt("id_endereco"));
-                return end.getId_endereco();   
+                return end.getId_endereco();
             } else{
                 return 0;
             }
-            
+
         }catch(SQLException e){
             System.out.println(e);;
         }
         return end.getId_endereco();
     }
-    
+
     public Endereco pesquisarEnderecoPorObjeto(Endereco endereco){
-    
+
         String where;
         where = "WHERE bairro = ? AND rua = ? AND cidade = ? AND numero = ?";
         String sql = "SELECT * FROM tb_enderecos "+where;
@@ -97,7 +97,7 @@ public class DaoEndereco {
             rs = stmt.executeQuery();
 
             while(rs.next()){
-                
+
                 resultado.setCidade(rs.getString("cidade"));
                 resultado.setEstado(rs.getString("estado"));
                 resultado.setBairro(rs.getString("bairro"));
@@ -117,20 +117,20 @@ public class DaoEndereco {
 
         return resultado;
     }
-    
+
     public Endereco pesquisarEnderecoPorID(String id){
-   
+
         String sql = "SELECT * FROM tb_enderecos WHERE id_endereco = '"+id+"'";
         ResultSet rs;
         Endereco resultado = new Endereco();
-        
+
         try{
 
             PreparedStatement stmt = conecta.prepareStatement(sql);
             rs = stmt.executeQuery();
 
             while(rs.next()){
-                
+
                 resultado.setCidade(rs.getString("cidade"));
                 resultado.setEstado(rs.getString("estado"));
                 resultado.setBairro(rs.getString("bairro"));
@@ -150,20 +150,20 @@ public class DaoEndereco {
 
         return resultado;
     }
-    
+
     public Endereco pesquisarEnderecoPorID(int id){
-   
+
         String sql = "SELECT * FROM tb_enderecos WHERE id_endereco = '"+String.valueOf(id)+"'";
         ResultSet rs;
         Endereco resultado = new Endereco();
-        
+
         try{
 
             PreparedStatement stmt = conecta.prepareStatement(sql);
             rs = stmt.executeQuery();
 
             while(rs.next()){
-                
+
                 resultado.setCidade(rs.getString("cidade"));
                 resultado.setEstado(rs.getString("estado"));
                 resultado.setBairro(rs.getString("bairro"));
@@ -183,10 +183,5 @@ public class DaoEndereco {
 
         return resultado;
     }
-    
+
     }
-    
-    
-    
-    
-    

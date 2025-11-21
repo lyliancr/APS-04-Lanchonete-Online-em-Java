@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoCliente;
-import DAO.DaoEndereco;
-import Model.Cliente;
-import Model.Endereco;
+import com.lanchonete.DAO.DaoCliente;
+import com.lanchonete.Model.Cliente;
+import com.lanchonete.Model.Endereco;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -40,25 +39,25 @@ public class cadastro extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         //Seta o tipo de Conteudo que será recebido, nesse caso, um JSON
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        
+
         //Pra receber JSONs, é necessario utilizar esse Buffer pra receber os dados,
         //Então tem que ser Feito assim:
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
         String json = "";
-        
+
         //Aqui ele checa se os Dados não tão vazios, por motivos de vai que
         if (br != null) {
-            
+
             //Converte os dados do JSON pra um Formato de Objeto que o Java consiga lidar
             json = br.readLine();
-            byte[] bytes = json.getBytes(ISO_8859_1); 
-            String jsonStr = new String(bytes, UTF_8);            
+            byte[] bytes = json.getBytes(ISO_8859_1);
+            String jsonStr = new String(bytes, UTF_8);
             JSONObject dados = new JSONObject(jsonStr);
-            
+
             //Aqui, ele Instancia um objeto do Model endereco, e Popula ele com os dados do JSON
             Endereco endereco = new Endereco();
             endereco.setBairro(dados.getJSONObject("endereco").getString("bairro"));
@@ -67,7 +66,7 @@ public class cadastro extends HttpServlet {
             endereco.setComplemento(dados.getJSONObject("endereco").getString("complemento"));
             endereco.setRua(dados.getJSONObject("endereco").getString("rua"));
             endereco.setNumero(dados.getJSONObject("endereco").getInt("numero"));
-            
+
             //Aqui, ele Instancia um objeto do Model Cliente, e Popula ele com os dados do JSON
             Cliente cliente = new Cliente();
             cliente.setNome(dados.getJSONObject("usuario").getString("nome"));
@@ -76,19 +75,19 @@ public class cadastro extends HttpServlet {
             cliente.setUsuario(dados.getJSONObject("usuario").getString("usuario"));
             cliente.setSenha(dados.getJSONObject("usuario").getString("senha"));
             cliente.setFg_ativo(1);
-            
+
             //E Para finalizar, salva no Banco usando o DAO deles
             cliente.setEndereco(endereco);
-            
+
             DaoCliente clienteDAO = new DaoCliente();
             clienteDAO.salvar(cliente);
-            
+
         }
-        
-        
-        
+
+
+
         try (PrintWriter out = response.getWriter()) {
-            
+
             //Aqui é onde a Resposta é mandada para o Cliente, dando um Feedback de que tudo deu certo.
             out.println("Usuário Cadastrado!");
 

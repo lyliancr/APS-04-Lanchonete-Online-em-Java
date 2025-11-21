@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoIngrediente;
-import Helpers.ValidadorCookie;
-import Model.Ingrediente;
+import com.lanchonete.DAO.DaoIngrediente;
+import com.lanchonete.Model.Ingrediente;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,15 +35,15 @@ public class getIngredientesCliente extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        
+
         boolean resultado = true;
-        
+
         if(resultado){
-            
+
             DaoIngrediente ingredienteDAO = new DaoIngrediente();
-            
+
             List<Ingrediente> ingredientes = ingredienteDAO.listarTodos();
-            
+
             Gson gson = new Gson();
             String json = gson.toJson(ingredientes);
 

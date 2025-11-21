@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package com.lanchonete.Model;
 
 /**
  *
@@ -67,8 +67,8 @@ public class Funcionario {
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
-    
-    
+
+
 
     public Double getSalario() {
         return salario;
@@ -77,8 +77,8 @@ public class Funcionario {
     public void setSalario(Double salario) {
         this.salario = salario;
     }
-    
-    
+
+
 
     public int getCad_por() {
         return cad_por;
@@ -95,6 +95,6 @@ public class Funcionario {
     public void setFg_ativo(int fg_ativo) {
         this.fg_ativo = fg_ativo;
     }
-    
-    
+
+
 }

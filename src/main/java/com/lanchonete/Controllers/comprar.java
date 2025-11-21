@@ -3,26 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoBebida;
-import DAO.DaoCliente;
-import DAO.DaoLanche;
-import DAO.DaoPedido;
-import Helpers.ValidadorCookie;
-import Model.Bebida;
-import Model.Cliente;
-import Model.Lanche;
-import Model.Pedido;
+import com.lanchonete.DAO.DaoBebida;
+import com.lanchonete.DAO.DaoCliente;
+import com.lanchonete.DAO.DaoLanche;
+import com.lanchonete.DAO.DaoPedido;
+import com.lanchonete.Helpers.ValidadorCookie;
+import com.lanchonete.Model.Bebida;
+import com.lanchonete.Model.Cliente;
+import com.lanchonete.Model.Lanche;
+import com.lanchonete.Model.Pedido;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import static java.nio.charset.StandardCharsets.ISO_8859_1;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -56,38 +53,38 @@ public class comprar extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
         String json = "";
-        
+
         ////////Validar Cookie
         boolean resultado = false;
-        
+
         try{
         Cookie[] cookies = request.getCookies();
         ValidadorCookie validar = new ValidadorCookie();
-        
+
         resultado = validar.validar(cookies);
         }catch(java.lang.NullPointerException e){}
         //////////////
-        
+
         if ((br != null) && resultado) {
             json = br.readLine();
-            byte[] bytes = json.getBytes(ISO_8859_1); 
-            String jsonStr = new String(bytes, UTF_8);            
+            byte[] bytes = json.getBytes(ISO_8859_1);
+            String jsonStr = new String(bytes, UTF_8);
             JSONObject dados = new JSONObject(jsonStr);
-            
-            DaoCliente clienteDao = new DaoCliente(); 
-            
+
+            DaoCliente clienteDao = new DaoCliente();
+
             Cliente cliente = clienteDao.pesquisaPorID(String.valueOf(dados.getInt("id")));
-            
+
             Iterator<String> keys = dados.keys();
-            
+
             Double valor_total = 0.00;
-            
+
             List<Lanche> lanches = new ArrayList<Lanche>();
             List<Bebida> bebidas = new ArrayList<Bebida>();
-            
-            
+
+
             while(keys.hasNext()) {
-                
+
                 String nome = keys.next();
                 if(!nome.equals("id")){
                     if(dados.getJSONArray(nome).get(1).equals("lanche")){
@@ -108,7 +105,7 @@ public class comprar extends HttpServlet {
                     }
                 }
             }
-            
+
             DaoPedido pedidoDao = new DaoPedido();
             Pedido pedido = new Pedido();
             pedido.setData_pedido(Instant.now().toString());
@@ -117,7 +114,7 @@ public class comprar extends HttpServlet {
             pedidoDao.salvar(pedido);
             pedido = pedidoDao.pesquisaPorData(pedido);
             pedido.setCliente(cliente);
-            
+
             System.out.println(lanches.toString());
             for(int i = 0; i<lanches.size(); i++){
                 pedidoDao.vincularLanche(pedido, lanches.get(i));
@@ -125,7 +122,7 @@ public class comprar extends HttpServlet {
             for(int i = 0; i<bebidas.size(); i++){
                 pedidoDao.vincularBebida(pedido, bebidas.get(i));
             }
-  
+
             try (PrintWriter out = response.getWriter()) {
             out.println("Pedido Salvo com Sucesso!");
             }
@@ -134,8 +131,8 @@ public class comprar extends HttpServlet {
             out.println("erro");
         }
         }
-        
-        
+
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

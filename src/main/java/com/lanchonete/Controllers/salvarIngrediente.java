@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoIngrediente;
-import Helpers.ValidadorCookie;
-import Model.Ingrediente;
+import com.lanchonete.DAO.DaoIngrediente;
+import com.lanchonete.Helpers.ValidadorCookie;
+import com.lanchonete.Model.Ingrediente;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -43,24 +43,24 @@ public class salvarIngrediente extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
         String json = "";
-        
+
         ////////Validar Cookie
         boolean resultado = false;
-        
+
         try{
         Cookie[] cookies = request.getCookies();
         ValidadorCookie validar = new ValidadorCookie();
-        
+
         resultado = validar.validarFuncionario(cookies);
         }catch(java.lang.NullPointerException e){}
         //////////////
-        
+
         if ((br != null) && resultado) {
             json = br.readLine();
-            byte[] bytes = json.getBytes(ISO_8859_1); 
-            String jsonStr = new String(bytes, UTF_8);            
+            byte[] bytes = json.getBytes(ISO_8859_1);
+            String jsonStr = new String(bytes, UTF_8);
             JSONObject dados = new JSONObject(jsonStr);
-            
+
             Ingrediente ingrediente = new Ingrediente();
             ingrediente.setNome(dados.getString("nome"));
             ingrediente.setDescricao(dados.getString("descricao"));
@@ -69,10 +69,10 @@ public class salvarIngrediente extends HttpServlet {
             ingrediente.setValor_venda(dados.getDouble("ValorVenda"));
             ingrediente.setTipo(dados.getString("tipo"));
             ingrediente.setFg_ativo(1);
-            
+
             DaoIngrediente ingredienteDAO = new DaoIngrediente();
             ingredienteDAO.salvar(ingrediente);
-            
+
             try (PrintWriter out = response.getWriter()) {
             out.println("Ingrediente Salvo!");
             }
@@ -81,8 +81,8 @@ public class salvarIngrediente extends HttpServlet {
             out.println("erro");
         }
         }
-        
-        
+
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

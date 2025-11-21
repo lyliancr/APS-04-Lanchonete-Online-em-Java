@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoRelatorio;
-import Helpers.ValidadorCookie;
-import Model.RelatorioGastos;
+import com.lanchonete.DAO.DaoRelatorio;
+import com.lanchonete.Helpers.ValidadorCookie;
+import com.lanchonete.Model.RelatorioGastos;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,20 +37,20 @@ public class getRelatorioGastos extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        
+
         ////////Validar Cookie
         boolean resultado = false;
-        
+
         try{
         Cookie[] cookies = request.getCookies();
         ValidadorCookie validar = new ValidadorCookie();
-        
+
         resultado = validar.validarFuncionario(cookies);
         }catch(java.lang.NullPointerException e){System.out.println(e);}
         //////////////
-        
+
         if(resultado){
-            
+
             DaoRelatorio dr = new DaoRelatorio();
             List<RelatorioGastos> relatorio = dr.listarRelGastos();
 

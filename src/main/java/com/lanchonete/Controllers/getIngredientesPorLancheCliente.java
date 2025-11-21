@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoIngrediente;
-import Helpers.ValidadorCookie;
-import Model.Ingrediente;
+import com.lanchonete.DAO.DaoIngrediente;
+import com.lanchonete.Model.Ingrediente;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +16,6 @@ import static java.nio.charset.StandardCharsets.ISO_8859_1;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,17 +43,17 @@ public class getIngredientesPorLancheCliente extends HttpServlet {
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
         String IncomingJson = "";
         boolean resultado = true;
-        
+
         if((br != null) && resultado){
             IncomingJson = br.readLine();
-            byte[] bytes = IncomingJson.getBytes(ISO_8859_1); 
-            String jsonStr = new String(bytes, UTF_8);            
+            byte[] bytes = IncomingJson.getBytes(ISO_8859_1);
+            String jsonStr = new String(bytes, UTF_8);
             JSONObject dados = new JSONObject(jsonStr);
-            
+
             DaoIngrediente ingredienteDAO = new DaoIngrediente();
 
             List<Ingrediente> ingredientes = ingredienteDAO.listarTodosPorLanche(dados.getInt("id"));
-            
+
             Gson gson = new Gson();
             String json = gson.toJson(ingredientes);
 

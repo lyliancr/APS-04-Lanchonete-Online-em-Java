@@ -1,10 +1,10 @@
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoIngrediente;
-import DAO.DaoLanche;
-import Helpers.ValidadorCookie;
-import Model.Ingrediente;
-import Model.Lanche;
+import com.lanchonete.DAO.DaoIngrediente;
+import com.lanchonete.DAO.DaoLanche;
+import com.lanchonete.Helpers.ValidadorCookie;
+import com.lanchonete.Model.Ingrediente;
+import com.lanchonete.Model.Lanche;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

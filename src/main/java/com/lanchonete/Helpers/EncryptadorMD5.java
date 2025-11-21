@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Helpers;
+package com.lanchonete.Helpers;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -13,11 +13,11 @@ import java.security.MessageDigest;
  * @author kener_000
  */
 public class EncryptadorMD5 {
-    
+
     public String encryptar(String senha){
         String plaintext = senha;
         try {
-            
+
             MessageDigest m = MessageDigest.getInstance("MD5");
             m.reset();
             m.update(plaintext.getBytes());
@@ -29,13 +29,13 @@ public class EncryptadorMD5 {
               hashtext = "0"+hashtext;
             }
             return hashtext;
-            
-        } catch(Exception e) { 
+
+        } catch(Exception e) {
             System.out.println(e);
-        };   
-        return null;    
-    } 
+        };
+        return null;
+    }
 
 
-    
+
 }

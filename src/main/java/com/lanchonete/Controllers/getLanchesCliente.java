@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoLanche;
-import Model.Lanche;
+import com.lanchonete.DAO.DaoLanche;
+import com.lanchonete.Model.Lanche;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,7 +35,7 @@ public class getLanchesCliente extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-            
+
         DaoLanche lancheDAO = new DaoLanche();
 
         List<Lanche> lanches = lancheDAO.listarTodos();

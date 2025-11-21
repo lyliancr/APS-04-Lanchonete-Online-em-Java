@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoIngrediente;
-import DAO.DaoLanche;
-import Helpers.ValidadorCookie;
-import Model.Ingrediente;
-import Model.Lanche;
+import com.lanchonete.DAO.DaoIngrediente;
+import com.lanchonete.DAO.DaoLanche;
+import com.lanchonete.Helpers.ValidadorCookie;
+import com.lanchonete.Model.Ingrediente;
+import com.lanchonete.Model.Lanche;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -46,51 +46,51 @@ public class salvarLanche extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
         String json = "";
-        
+
         ////////Validar Cookie
         boolean resultado = false;
-        
+
         try{
         Cookie[] cookies = request.getCookies();
         ValidadorCookie validar = new ValidadorCookie();
-        
+
         resultado = validar.validarFuncionario(cookies);
         }catch(java.lang.NullPointerException e){}
         //////////////
-        
+
         if ((br != null) && resultado) {
             json = br.readLine();
-            byte[] bytes = json.getBytes(ISO_8859_1); 
-            String jsonStr = new String(bytes, UTF_8);            
+            byte[] bytes = json.getBytes(ISO_8859_1);
+            String jsonStr = new String(bytes, UTF_8);
             JSONObject dados = new JSONObject(jsonStr);
             JSONObject ingredientes = dados.getJSONObject("ingredientes");
-       
+
             Lanche lanche = new Lanche();
-            
+
             lanche.setNome(dados.getString("nome"));
             lanche.setDescricao(dados.getString("descricao"));
             lanche.setValor_venda(dados.getDouble("ValorVenda"));
-            
+
             DaoLanche lancheDao = new DaoLanche();
             DaoIngrediente ingredienteDao = new DaoIngrediente();
-            
+
             lancheDao.salvar(lanche);
-            
+
             Lanche lancheComID = lancheDao.pesquisaPorNome(lanche);
-            
+
             Iterator<String> keys = ingredientes.keys();
-            
+
             while(keys.hasNext()) {
-                
-                String key = keys.next(); 
+
+                String key = keys.next();
                 Ingrediente ingredienteLanche = new Ingrediente();
                 ingredienteLanche.setNome(key);
-                
+
                 Ingrediente ingredienteComID = ingredienteDao.pesquisaPorNome(ingredienteLanche);
                 ingredienteComID.setQuantidade(ingredientes.getInt(key));
                 lancheDao.vincularIngrediente(lancheComID, ingredienteComID);
             }
-            
+
             try (PrintWriter out = response.getWriter()) {
             out.println("Lanche Salvo com Sucesso!");
             }
@@ -99,8 +99,8 @@ public class salvarLanche extends HttpServlet {
             out.println("erro");
         }
         }
-        
-        
+
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

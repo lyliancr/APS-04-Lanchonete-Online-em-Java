@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package com.lanchonete.Model;
 
 /**
  *
@@ -82,14 +82,14 @@ public class Cliente {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-    
+
     public String resumo(){
         String string = "Nome: "+this.nome+" "+this.sobrenome+" <br>"
                 + "Telefone: "+this.telefone+" <br>"
                 + "Usuario: "+this.usuario+" <br>"
                 + "Senha: "+this.senha;
-        
+
         return string;
     }
-    
+
 }

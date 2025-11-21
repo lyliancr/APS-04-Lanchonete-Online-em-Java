@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package com.lanchonete.DAO;
 
-import Model.RelatorioBebidas;
-import Model.RelatorioGastos;
-import Model.RelatorioLanches;
+import com.lanchonete.Model.RelatorioBebidas;
+import com.lanchonete.Model.RelatorioGastos;
+import com.lanchonete.Model.RelatorioLanches;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,11 +21,11 @@ import java.util.List;
  */
 public class DaoRelatorio {
     private Connection conecta;
-    
+
     public DaoRelatorio(){
         this.conecta = new DaoUtil().conecta();
     }
-    
+
     public List<RelatorioLanches> listarRelLanches(){
         String sql = "SELECT l.nm_lanche, i.nm_ingrediente, il.quantidade,\n" +
                 "i.valor_compra * il.quantidade AS custo_ingrediente,\n" +
@@ -97,7 +97,7 @@ public class DaoRelatorio {
         }
         return relatorio;
     }
-    
+
     public List<RelatorioBebidas> listarRelBebidas(){
         String sql = "SELECT p.id_pedido, CONCAT(c.nome,' ',c.sobrenome) as cliente, b.nm_bebida, bp.quantidade,\n" +
                 "SUM (b.valor_compra)*bp.quantidade AS custo_bebidas,\n" +
@@ -152,7 +152,7 @@ public class DaoRelatorio {
         }
         return relatorio;
     }
-    
+
     public List<RelatorioGastos> listarRelGastos(){
         String sql = "SELECT (SELECT SUM(i.valor_compra*il.quantidade*lp.quantidade)\n" +
                 "FROM tb_lanches_pedido lp\n" +

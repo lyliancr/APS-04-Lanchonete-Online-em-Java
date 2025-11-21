@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package com.lanchonete.Model;
 
 /**
  *
@@ -65,7 +65,7 @@ public class Lanche {
     public void setValor_lanche(Double valor_lanche) {
         this.valor_lanche = valor_lanche;
     }
-    
+
      public int getQuantidade() {
         return quantidade;
     }
@@ -74,5 +74,5 @@ public class Lanche {
         this.quantidade = quantidade;
     }
 
-    
+
 }

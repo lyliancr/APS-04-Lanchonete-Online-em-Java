@@ -3,15 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoBebida;
-import Helpers.ValidadorCookie;
-import Model.Bebida;
-import com.google.gson.Gson;
+import com.lanchonete.Helpers.ValidadorCookie;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -37,20 +33,20 @@ public class validarTokenFunc extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        
+
         ////////Validar Cookie
         boolean resultado = false;
-        
+
         try{
         Cookie[] cookies = request.getCookies();
         ValidadorCookie validar = new ValidadorCookie();
-        
+
         resultado = validar.validarFuncionario(cookies);
         }catch(java.lang.NullPointerException e){System.out.println(e);}
         //////////////
-        
+
         if(resultado){
-            
+
             try (PrintWriter out = response.getWriter()) {
                 out.println("valido");
                 out.flush();

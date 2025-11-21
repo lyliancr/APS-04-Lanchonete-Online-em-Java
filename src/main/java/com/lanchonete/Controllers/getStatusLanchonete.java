@@ -1,6 +1,6 @@
-package Controllers;
+package com.lanchonete.Controllers;
 
-import DAO.DaoStatusLanchonete;
+import com.lanchonete.DAO.DaoStatusLanchonete;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,13 +15,13 @@ public class getStatusLanchonete extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        
+
         DaoStatusLanchonete dao = new DaoStatusLanchonete();
         String status = dao.getStatus();
-        
+
         JSONObject jsonResponse = new JSONObject();
         jsonResponse.put("status", status);
-        
+
         try (PrintWriter out = response.getWriter()) {
             out.print(jsonResponse.toString());
             out.flush();
@@ -39,4 +39,4 @@ public class getStatusLanchonete extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-} 
+}
