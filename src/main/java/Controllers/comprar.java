@@ -70,71 +70,83 @@ public class comprar extends HttpServlet {
         
         if ((br != null) && resultado) {
             json = br.readLine();
-            byte[] bytes = json.getBytes(ISO_8859_1); 
-            String jsonStr = new String(bytes, UTF_8);            
-            JSONObject dados = new JSONObject(jsonStr);
             
-            DaoCliente clienteDao = new DaoCliente(); 
-            
-            Cliente cliente = clienteDao.pesquisaPorID(String.valueOf(dados.getInt("id")));
-            
-            Iterator<String> keys = dados.keys();
-            
-            Double valor_total = 0.00;
-            
-            List<Lanche> lanches = new ArrayList<Lanche>();
-            List<Bebida> bebidas = new ArrayList<Bebida>();
-            
-            
-            while(keys.hasNext()) {
+            // CORREÇÃO DO BUG #1 (NPE): Se json for nulo ou vazio após a leitura, 
+            // saímos do 'if' para cair no bloco 'else' de erro.
+            if (json == null || json.trim().isEmpty()) {
+                // Deixa o fluxo cair no 'else' final.
+            } else {
+                byte[] bytes = json.getBytes(ISO_8859_1); 
+                String jsonStr = new String(bytes, UTF_8);            
+                JSONObject dados = new JSONObject(jsonStr);
                 
-                String nome = keys.next();
-                if(!nome.equals("id")){
-                    if(dados.getJSONArray(nome).get(1).equals("lanche")){
-                        DaoLanche lancheDao = new DaoLanche();
-                        Lanche lanche = lancheDao.pesquisaPorNome(nome);
-                        int quantidade = dados.getJSONArray(nome).getInt(2);
-                        lanche.setQuantidade(quantidade);
-                        valor_total += lanche.getValor_venda();
-                        lanches.add(lanche);
-                    }
-                    if(dados.getJSONArray(nome).get(1).equals("bebida")){
-                        DaoBebida bebidaDao = new DaoBebida();
-                        Bebida bebida = bebidaDao.pesquisaPorNome(nome);
-                        int quantidade = dados.getJSONArray(nome).getInt(2);
-                        bebida.setQuantidade(quantidade);
-                        valor_total += bebida.getValor_venda();
-                        bebidas.add(bebida);
+                DaoCliente clienteDao = new DaoCliente(); 
+                
+                Cliente cliente = clienteDao.pesquisaPorID(String.valueOf(dados.getInt("id")));
+                
+                Iterator<String> keys = dados.keys();
+                
+                Double valor_total = 0.00;
+                
+                List<Lanche> lanches = new ArrayList<Lanche>();
+                List<Bebida> bebidas = new ArrayList<Bebida>();
+                
+                
+                while(keys.hasNext()) {
+                    
+                    String nome = keys.next();
+                    if(!nome.equals("id")){
+                        if(dados.getJSONArray(nome).get(1).equals("lanche")){
+                            DaoLanche lancheDao = new DaoLanche();
+                            Lanche lanche = lancheDao.pesquisaPorNome(nome);
+                            int quantidade = dados.getJSONArray(nome).getInt(2);
+                            lanche.setQuantidade(quantidade);
+                            
+                            // CORREÇÃO DO BUG #2 (CÁLCULO): Multiplica o valor pela quantidade
+                            valor_total += lanche.getValor_venda() * quantidade; 
+                            lanches.add(lanche);
+                        }
+                        if(dados.getJSONArray(nome).get(1).equals("bebida")){
+                            DaoBebida bebidaDao = new DaoBebida();
+                            Bebida bebida = bebidaDao.pesquisaPorNome(nome);
+                            int quantidade = dados.getJSONArray(nome).getInt(2);
+                            bebida.setQuantidade(quantidade);
+                            
+                            // CORREÇÃO DO BUG #2 (CÁLCULO): Multiplica o valor pela quantidade
+                            valor_total += bebida.getValor_venda() * quantidade;
+                            bebidas.add(bebida);
+                        }
                     }
                 }
+                
+                DaoPedido pedidoDao = new DaoPedido();
+                Pedido pedido = new Pedido();
+                pedido.setData_pedido(Instant.now().toString());
+                pedido.setCliente(cliente);
+                pedido.setValor_total(valor_total);
+                pedidoDao.salvar(pedido);
+                pedido = pedidoDao.pesquisaPorData(pedido);
+                pedido.setCliente(cliente);
+                
+                System.out.println(lanches.toString());
+                for(int i = 0; i<lanches.size(); i++){
+                    pedidoDao.vincularLanche(pedido, lanches.get(i));
+                }
+                for(int i = 0; i<bebidas.size(); i++){
+                    pedidoDao.vincularBebida(pedido, bebidas.get(i));
+                }
+    
+                try (PrintWriter out = response.getWriter()) {
+                out.println("Pedido Salvo com Sucesso!");
+                }
+                return; // Retorna para evitar cair no 'else' final
             }
-            
-            DaoPedido pedidoDao = new DaoPedido();
-            Pedido pedido = new Pedido();
-            pedido.setData_pedido(Instant.now().toString());
-            pedido.setCliente(cliente);
-            pedido.setValor_total(valor_total);
-            pedidoDao.salvar(pedido);
-            pedido = pedidoDao.pesquisaPorData(pedido);
-            pedido.setCliente(cliente);
-            
-            System.out.println(lanches.toString());
-            for(int i = 0; i<lanches.size(); i++){
-                pedidoDao.vincularLanche(pedido, lanches.get(i));
-            }
-            for(int i = 0; i<bebidas.size(); i++){
-                pedidoDao.vincularBebida(pedido, bebidas.get(i));
-            }
-  
-            try (PrintWriter out = response.getWriter()) {
-            out.println("Pedido Salvo com Sucesso!");
-            }
-        } else {
-            try (PrintWriter out = response.getWriter()) {
+        } 
+        
+        // Bloco Else: Executado se o cookie for inválido, br for null, ou json for null/vazio.
+        try (PrintWriter out = response.getWriter()) {
             out.println("erro");
         }
-        }
-        
         
     }
 
