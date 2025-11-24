@@ -7,7 +7,7 @@ function enviarCadastro(){
     if(validar(usuario) && validar(endereco)){
         dados['usuario'] = formularioParaObjeto(usuario);
         dados['endereco'] = formularioParaObjeto(endereco);
-        requisicao("../../cadastro", resolver, JSON.stringify(dados));
+        requisicao("/cadastro", resolver, JSON.stringify(dados));
     }
 
 }

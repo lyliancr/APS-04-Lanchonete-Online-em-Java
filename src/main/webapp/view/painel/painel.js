@@ -1,6 +1,6 @@
 function validarToken(){
     sessionStorage.clear();
-    requisicao("../../validarTokenFunc", check)
+    requisicao("/validarTokenFunc", check)
 }
 
 function check(resposta){
@@ -10,14 +10,14 @@ function check(resposta){
 }
 
 function showCadIngredienteDiv(){
-    
-    
+
+
     let tip = document.getElementById("Agrupado");
     let div = document.getElementById("CadIngredientes");
     let div2 = document.getElementById("CadBebidas");
     let div3 = document.getElementById("CadFuncionarios");
     let div4 = document.getElementById("CadLanches");
-    
+
         tip.style.display = 'none';
         div.style.display = 'block';
         div2.style.display = 'none';
@@ -33,13 +33,13 @@ function showCadBebidaDiv(){
     let div3 = document.getElementById("CadFuncionarios");
     let div4 = document.getElementById("CadLanches");
 
-    
+
         tip.style.display = 'none';
         div.style.display = 'block';
         div2.style.display = 'none';
         div3.style.display = 'none';
         div4.style.display = 'none';
-    
+
 }
 
 function showInicioDiv(){
@@ -50,7 +50,7 @@ function showInicioDiv(){
     let div3 = document.getElementById("CadFuncionarios");
     let div4 = document.getElementById("CadLanches");
 
-    
+
         tip.style.display = 'block';
         div.style.display = 'none';
         div2.style.display = 'none';
@@ -65,8 +65,8 @@ function salvarIngrediente(){
 
     if(validar(form)){
         dados = formularioParaObjeto(form);
-        requisicao("../../salvarIngrediente", resolver, JSON.stringify(dados));
-        
+        requisicao("/salvarIngrediente", resolver, JSON.stringify(dados));
+
     }
 
 }
@@ -78,8 +78,8 @@ function salvarBebida(){
 
     if(validar(form)){
         dados = formularioParaObjeto(form);
-        requisicao("../../salvarBebida", resolver, JSON.stringify(dados));
-        
+        requisicao("/salvarBebida", resolver, JSON.stringify(dados));
+
     }
 
 }
@@ -92,10 +92,10 @@ function salvarFuncionario(){
     if(validar(form)){
         dados = formularioParaObjeto(form);
         console.log(dados);
-        requisicao("../../salvarFuncionario", resolver, JSON.stringify(dados));
-        
+        requisicao("/salvarFuncionario", resolver, JSON.stringify(dados));
+
     }
-    
+
 }
 
 function showCadLanches(){
@@ -109,8 +109,8 @@ function showCadLanches(){
     //let divStatus = document.getElementById("statusId")
     //let divStatus2 = document.getElementById("statusId2")
     //let divcenter = document.getElementById("footerId");
-  
-    
+
+
         tip.style.display = 'none';
         div.style.display = 'block';
         div2.style.display = 'none';
@@ -120,8 +120,8 @@ function showCadLanches(){
         //divStatus2.style.display = 'flex';
         //divcenter.style.justifyContent = 'space-around';
 
-    
-    requisicao("../../getIngredientes", getIngredientes);
+
+    requisicao("/getIngredientes", getIngredientes);
 
 }
 
@@ -138,7 +138,7 @@ function logout(){
     deleteAllCookies();
     deleteAllSession();
     sessionStorage.clear();
-    requisicao("../../logout", deslogar)
+    requisicao("/logout", deslogar)
 }
 
 function deslogar(resposta){
@@ -155,7 +155,7 @@ function deleteAllCookies() {
 }
 
 function deleteAllSession() {
-    
+
     console.log("Ué");
     Object.keys(sessionStorage).forEach(
         (key) => {
@@ -170,8 +170,8 @@ function showCadFuncionario(){
     let div = document.getElementById("CadLanches");
     let div2 = document.getElementById("CadBebidas");
     let div3 = document.getElementById("CadFuncionarios")
-    
-    
+
+
         tip.style.display = 'none';
         div.style.display = 'none';
         div2.style.display = 'none';
@@ -201,7 +201,7 @@ function getIngredientes(resposta){
 
     if(resposta.srcElement.responseText.includes("erro")){
         window.location.replace("../login/login_Funcionario.html?Action=TokenError");
-    } 
+    }
     else {
         dados = JSON.parse(resposta.srcElement.responseText);
         Object.keys(dados).forEach( ingrediente => {
@@ -217,7 +217,7 @@ function getIngredientes(resposta){
 }
 
 function createIngredienteDiv(dados){
-    
+
     let ingredientes = document.getElementById("ingredientes");
 
     let opcIngredientes = document.createElement('div');
@@ -258,8 +258,8 @@ function createIngredienteDiv(dados){
     minus.classList.add('icon');
     minus.innerText = "– ";
 
-    
-    
+
+
     ingredientes.appendChild(opcIngredientes);
     opcIngredientes.appendChild(nameValue);
     nameValue.appendChild(legendIngrediente);
@@ -271,21 +271,21 @@ function createIngredienteDiv(dados){
     contador.appendChild(buttonplus);
     buttonplus.appendChild(plus);
 
-}   
+}
 
 function plusItem(p, nome){
     n = parseInt(p.innerText) + 1;
     p.innerText = n;
 
     sessionStorage.setItem(nome, p.innerText);
-    
+
 }
 
 function minusItem(p, nome){
     if(parseInt(p.innerText) > 0){
         n = parseInt(p.innerText) - 1;
         p.innerText = n;
-    
+
         sessionStorage.setItem(nome, p.innerText);
     }
 }
@@ -298,7 +298,7 @@ function salvarLanche(){
         dados = dadosDoLanche();
         console.log(dados);
         sessionStorage.clear()
-        requisicao("../../salvarLanche", resolver, JSON.stringify(dados));
+        requisicao("/salvarLanche", resolver, JSON.stringify(dados));
         window.location.reload();
     }
 
@@ -354,17 +354,17 @@ function dadosDoLanche(){
 }
 
 function abrirLanchonete() {
-    requisicao("../../alterarStatusLanchonete", atualizarStatusLanchonete, JSON.stringify({status: "ABERTO"}));
+    requisicao("/alterarStatusLanchonete", atualizarStatusLanchonete, JSON.stringify({status: "ABERTO"}));
 }
 
 function fecharLanchonete() {
-    requisicao("../../alterarStatusLanchonete", atualizarStatusLanchonete, JSON.stringify({status: "FECHADO"}));
+    requisicao("/alterarStatusLanchonete", atualizarStatusLanchonete, JSON.stringify({status: "FECHADO"}));
 }
 
 function atualizarStatusLanchonete(response) {
     const resposta = response.srcElement.responseText;
     console.log("Resposta do servidor:", resposta);
-    
+
     if (resposta === "erro" || resposta.includes("Status inválido")) {
         console.error("Erro ao alterar status:", resposta);
         return;
@@ -373,22 +373,22 @@ function atualizarStatusLanchonete(response) {
     try {
         const data = JSON.parse(resposta);
         console.log("Dados parseados:", data);
-        
+
         // Procura o elemento dentro do footer
         const footer = document.querySelector(".footerPainel");
         const statusElement = footer.querySelector(".legendStatus");
         console.log("Elemento de status encontrado:", statusElement);
-        
+
         if (statusElement) {
             const novoTexto = data.status === "ABERTO" ? "Aberto agora!" : "Fechado agora!";
             console.log("Atualizando texto para:", novoTexto);
-            
+
             // Força a atualização do DOM
             statusElement.innerHTML = novoTexto;
             statusElement.style.display = 'none';
             statusElement.offsetHeight; // Força um reflow
             statusElement.style.display = '';
-            
+
             // Atualiza também o outro elemento se existir
             const outroStatus = document.querySelectorAll(".legendStatus");
             outroStatus.forEach(el => {
@@ -405,7 +405,7 @@ function atualizarStatusLanchonete(response) {
 }
 
 function verificarStatusLanchonete() {
-    requisicao("../../getStatusLanchonete", atualizarStatusLanchonete);
+    requisicao("/getStatusLanchonete", atualizarStatusLanchonete);
 }
 
 // Adicionar chamada para verificar status ao carregar a página

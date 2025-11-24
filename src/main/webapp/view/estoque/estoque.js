@@ -1,7 +1,7 @@
 function getInfo(){
-    requisicao("../../getIngredientes", getIngredientes);
-    requisicao("../../getBebidas", getBebidas);
-    requisicao("../../getLanches", getLanches);
+    requisicao("/getIngredientes", getIngredientes);
+    requisicao("/getBebidas", getBebidas);
+    requisicao("/getLanches", getLanches);
 }
 
 
@@ -9,7 +9,7 @@ function getIngredientes(resposta){
 
     if(resposta.srcElement.responseText.includes("erro")){
         window.location.replace("../login/login_Funcionario.html?Action=TokenError");
-    } 
+    }
     else {
         dados = JSON.parse(resposta.srcElement.responseText);
         atualizarIngredientes(dados);
@@ -21,7 +21,7 @@ function getLanches(resposta){
 
     if(resposta.srcElement.responseText.includes("erro")){
         window.location.replace("../login/login_Funcionario.html?Action=TokenError");
-    } 
+    }
     else {
         dados = JSON.parse(resposta.srcElement.responseText);
         atualizarLanches(dados);
@@ -32,7 +32,7 @@ function getLanches(resposta){
 function getBebidas(resposta){
     if(resposta.srcElement.responseText.includes("erro")){
         window.location.replace("../login/login_Funcionario.html?Action=TokenError");
-    } 
+    }
     else {
         dados = JSON.parse(resposta.srcElement.responseText);
         atualizarBebidas(dados);
@@ -43,7 +43,7 @@ function atualizarIngredientes(dados){
 
     let tabela = document.getElementById("tabelaIngredientes");
 
-    
+
     Object.keys(dados).forEach(cadastro => {
         let row = tabela.insertRow(1);
         for (let key in dados[cadastro]) {
@@ -55,7 +55,7 @@ function atualizarIngredientes(dados){
 
 function atualizarLanches(dados){
 
-    let tabela = document.getElementById("tabelaLanches");   
+    let tabela = document.getElementById("tabelaLanches");
     Object.keys(dados).forEach(cadastro => {
         let row = tabela.insertRow(1);
         for (let key in dados[cadastro]) {
@@ -88,8 +88,8 @@ function pegarLanche(dados) {
 function getIngredientesLanche(id){
     dados = {}
     dados['id'] = id;
-    requisicao("../../getIngredientesPorLanche", setarIngredientes, JSON.stringify(dados));
-    
+    requisicao("/getIngredientesPorLanche", setarIngredientes, JSON.stringify(dados));
+
 }
 
 function setarIngredientes(resposta){
@@ -98,10 +98,10 @@ function setarIngredientes(resposta){
 
     if(resposta.srcElement.responseText.includes("erro")){
         window.location.replace("../login/login_Funcionario.html?Action=TokenError");
-    } 
+    }
     else {
         dados = JSON.parse(resposta.srcElement.responseText);
-        
+
         Object.keys(dados).forEach(cadastro => {
             let row = tabela.insertRow(1);
             for (let key in dados[cadastro]) {
@@ -141,7 +141,7 @@ function showIngrediente(){
 function atualizarBebidas(dados){
     let tabela = document.getElementById("tabelaBebidas");
 
-    
+
     Object.keys(dados).forEach(cadastro => {
         let row = tabela.insertRow(1);
         for (let key in dados[cadastro]) {
@@ -179,7 +179,7 @@ function alterarIngrediente(){
 
     if(validar(form)){
         dados = formularioParaObjeto(form);
-        requisicao("../../alterarIngrediente", resolver, JSON.stringify(dados));
+        requisicao("/alterarIngrediente", resolver, JSON.stringify(dados));
     }
 
 }
@@ -191,7 +191,7 @@ function alterarBebida(){
 
     if(validar(form)){
         dados = formularioParaObjeto(form);
-        requisicao("../../alterarBebida", resolver, JSON.stringify(dados));
+        requisicao("/alterarBebida", resolver, JSON.stringify(dados));
     }
 
 }
@@ -203,7 +203,7 @@ function removerIngrediente(){
 
     if(validar(form)){
         dados = formularioParaObjeto(form);
-        requisicao("../../removerIngrediente", resolver, JSON.stringify(dados));
+        requisicao("/removerIngrediente", resolver, JSON.stringify(dados));
     }
 
 }
@@ -215,7 +215,7 @@ function removerBebida(){
 
     if(validar(form)){
         dados = formularioParaObjeto(form);
-        requisicao("../../removerBebida", resolver, JSON.stringify(dados));
+        requisicao("/removerBebida", resolver, JSON.stringify(dados));
     }
 
 }
@@ -253,7 +253,7 @@ function logout(){
     deleteAllCookies();
     deleteAllSession();
     sessionStorage.clear();
-    requisicao("../../logout", deslogar)
+    requisicao("/logout", deslogar)
 }
 
 function deslogar(resposta){
@@ -270,7 +270,7 @@ function deleteAllCookies() {
 }
 
 function deleteAllSession() {
-    
+
     console.log("Ué");
     Object.keys(sessionStorage).forEach(
         (key) => {

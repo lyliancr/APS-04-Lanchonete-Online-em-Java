@@ -6,20 +6,28 @@
 package com.lanchonete.DAO;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 public class DaoUtil {
+    private static DataSource ds;
 
-    public Connection conecta(){
-        try{
-            Class.forName("org.postgresql.Driver");
-            String url = "jdbc:postgresql://db:5432/lanchonete";
-            String usuario = "postgres";
-            String senha = "123456";
-            return DriverManager.getConnection(url, usuario, senha);
-        }catch(Exception e){
-            throw new RuntimeException(e);
+    static {
+        try {
+            Context initContext = new InitialContext();
+            ds = (DataSource) initContext.lookup("java:comp/env/jdbc/lanchonete");
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao configurar DataSource", e);
         }
     }
 
+    public static Connection conecta() {
+        try {
+            return ds.getConnection();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

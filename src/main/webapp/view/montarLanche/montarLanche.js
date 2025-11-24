@@ -1,6 +1,6 @@
 
 function getInfo(){
-requisicao("../../getIngredientesCliente", getIngredientes);
+requisicao("/getIngredientesCliente", getIngredientes);
 }
 
 function getIngredientes(resposta){
@@ -11,7 +11,7 @@ function getIngredientes(resposta){
 
     if(resposta.srcElement.responseText.includes("erro")){
         window.location.replace("../login/login_Funcionario.html?Action=TokenError");
-    } 
+    }
     else {
         dados = JSON.parse(resposta.srcElement.responseText);
         Object.keys(dados).forEach( ingrediente => {
@@ -27,7 +27,7 @@ function getIngredientes(resposta){
 }
 
 function createIngredienteDiv(dados){
-    
+
     let ingredientes = document.getElementById("ingredientes");
 
     let opcIngredientes = document.createElement('div');
@@ -68,8 +68,8 @@ function createIngredienteDiv(dados){
     minus.classList.add('icon');
     minus.innerText = "– ";
 
-    
-    
+
+
     ingredientes.appendChild(opcIngredientes);
     opcIngredientes.appendChild(nameValue);
     nameValue.appendChild(legendIngrediente);
@@ -81,7 +81,7 @@ function createIngredienteDiv(dados){
     contador.appendChild(buttonplus);
     buttonplus.appendChild(plus);
 
-}   
+}
 
 function plusItem(p, nome, valorI){
     n = parseInt(p.innerText) + 1;
@@ -96,9 +96,9 @@ function minusItem(p, nome, valorI){
     if(parseInt(p.innerText) > 0){
         n = parseInt(p.innerText) - 1;
         p.innerText = n;
-        
+
         dadosLanche[nome] = p.innerText;
-        
+
         valor -= parseFloat(valorI);
         atualizarValor();
         if(p.innerText == "0"){
@@ -117,7 +117,7 @@ function salvarLanche(){
 
     if(validarLanche()){
         console.log(dadosLanche);
-        requisicao("../../salvarLancheCliente", resolver, JSON.stringify(dadosLanche));
+        requisicao("/salvarLancheCliente", resolver, JSON.stringify(dadosLanche));
     }
 
 }
@@ -152,6 +152,6 @@ function resolver(resposta){
         window.location.replace("../login/login.html");
     } else {
         window.location.replace(resposta.srcElement.responseText);
-        
+
     }
 }

@@ -10,8 +10,8 @@ function enviarLogin(){
         dados['usuario'] = usuario;
         dados['senha'] = senha;
 
-        
-        requisicao("../../login", resolver, JSON.stringify(dados));
+
+        requisicao("/login", resolver, JSON.stringify(dados));
     } else {
         alert("Digite as Informações!");
     }
@@ -38,7 +38,7 @@ function resolver(resposta){
 
 
 function validarToken(){
-    requisicao("../../validarToken", check)
+    requisicao("/validarToken", check)
 }
 
 function check(resposta){

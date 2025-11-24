@@ -1,5 +1,5 @@
 function loadData(){
-    requisicao("../../getStatusLanchonete", verificarStatusAntesDeCarregar);
+    requisicao("/getStatusLanchonete", verificarStatusAntesDeCarregar);
 }
 
 function verificarStatusAntesDeCarregar(response) {
@@ -7,8 +7,8 @@ function verificarStatusAntesDeCarregar(response) {
         try {
             const data = JSON.parse(response.srcElement.responseText);
             if (data.status === "ABERTO") {
-                requisicao("../../getLanchesCliente", getLanches);
-                requisicao("../../getBebidasCliente", getBebidas);
+                requisicao("/getLanchesCliente", getLanches);
+                requisicao("/getBebidasCliente", getBebidas);
             } else {
                 alert("A lanchonete está fechada no momento. Por favor, tente novamente mais tarde.");
             }
@@ -22,20 +22,20 @@ function verificarStatusAntesDeCarregar(response) {
 function divConstructor(dados){
 
     let screen = document.getElementById("screen");
-    
+
     let divLanche = document.createElement('div');
     divLanche.classList.add("divLanche");
 
     let row = document.createElement('div');
     row.classList.add("row");
-    
+
     let divImagem = document.createElement('div');
     divImagem.classList.add("divImagem");
 
     let img = document.createElement('img');
     img.classList.add("lancheIMG");
     img.setAttribute("src", imagemAleatoriaLanche());
-    
+
     let divConteudo = document.createElement('div');
     divConteudo.classList.add("divConteudo");
 
@@ -48,7 +48,7 @@ function divConstructor(dados){
 
     let descricaoLanche = document.createElement('div');
     descricaoLanche.classList.add("descricaoLanche");
-    
+
     let p = document.createElement("p");
     p.classList.add("textoDescricao");
     p.innerText = dados['descricao'];
@@ -59,7 +59,7 @@ function divConstructor(dados){
 
     let column = document.createElement('div');
     column.classList.add("column");
-    
+
     let botaoLanche1 = document.createElement("button");
     botaoLanche1.classList.add("botaoLanche");
     botaoLanche1.innerText = "Veja os Ingredientes"
@@ -90,20 +90,20 @@ function divConstructor(dados){
 function divConstructorBebidas(dados){
 
     let screen = document.getElementById("screenBebidas");
-    
+
     let divLanche = document.createElement('div');
     divLanche.classList.add("divLanche");
 
     let row = document.createElement('div');
     row.classList.add("row");
-    
+
     let divImagem = document.createElement('div');
     divImagem.classList.add("divImagem");
 
     let img = document.createElement('img');
     img.classList.add("lancheIMG");
     img.setAttribute("src", imagemAleatoriaBebida());
-    
+
     let divConteudo = document.createElement('div');
     divConteudo.classList.add("divConteudo");
 
@@ -116,7 +116,7 @@ function divConstructorBebidas(dados){
 
     let descricaoLanche = document.createElement('div');
     descricaoLanche.classList.add("descricaoLanche");
-    
+
     let p = document.createElement("p");
     p.classList.add("textoDescricao");
     p.innerText = dados['descricao'];
@@ -127,7 +127,7 @@ function divConstructorBebidas(dados){
 
     let column = document.createElement('div');
     column.classList.add("column");
-    
+
     let botaoLanche1 = document.createElement("button");
     botaoLanche1.classList.add("botaoLanche");
     botaoLanche1.innerText = "Tipo: "+dados['tipo'].capitalize();
@@ -156,7 +156,7 @@ function getLanches(resposta){
 
     if(resposta.srcElement.responseText.includes("erro")){
         alert("Ocorreu um erro com nosso Sistema! Tente novamente mais tarde.")
-    } 
+    }
     else {
         dados = JSON.parse(resposta.srcElement.responseText);
 
@@ -171,7 +171,7 @@ function getBebidas(resposta){
 
     if(resposta.srcElement.responseText.includes("erro")){
         alert("Ocorreu um erro com nosso Sistema! Tente novamente mais tarde.")
-    } 
+    }
     else {
         dados = JSON.parse(resposta.srcElement.responseText);
 
@@ -183,12 +183,12 @@ function getBebidas(resposta){
 }
 
 function imagemAleatoriaLanche(){
-    n = Math.floor(Math.random() * 4) + 1  
+    n = Math.floor(Math.random() * 4) + 1
     return "../assets/lanches/" + n + ".jpg";
 }
 
 function imagemAleatoriaBebida(){
-    n = Math.floor(Math.random() * 4) + 1  
+    n = Math.floor(Math.random() * 4) + 1
     return "../assets/bebidas/" + n + ".jpg";
 }
 
@@ -197,7 +197,7 @@ function showBebidas(){
     let lanches = document.getElementById("screen");
     let bebidas = document.getElementById("screenBebidas");
     let porcoes = document.getElementById("screenPorcoes");
-    
+
     lanches.style.display = 'none';
     bebidas.style.display = 'block';
     porcoes.style.display = 'none';
@@ -209,7 +209,7 @@ function showLanches(){
     let lanches = document.getElementById("screen");
     let bebidas = document.getElementById("screenBebidas");
     let porcoes = document.getElementById("screenPorcoes");
-    
+
     lanches.style.display = 'block';
     bebidas.style.display = 'none';
     porcoes.style.display = 'none';
@@ -221,7 +221,7 @@ function showPorcoes(){
     let lanches = document.getElementById("screen");
     let bebidas = document.getElementById("screenBebidas");
     let porcoes = document.getElementById("screenPorcoes");
-    
+
     lanches.style.display = 'none';
     bebidas.style.display = 'none';
     porcoes.style.display = 'block';
@@ -240,7 +240,7 @@ function showIngredientes(id){
 function getIngredientesLanche(id){
     dados = {}
     dados['id'] = id;
-    requisicao("../../getIngredientesPorLancheCliente", mostrarIngredientes, JSON.stringify(dados));    
+    requisicao("/getIngredientesPorLancheCliente", mostrarIngredientes, JSON.stringify(dados));
 }
 
 function mostrarIngredientes(resposta){

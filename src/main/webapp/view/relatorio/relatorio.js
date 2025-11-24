@@ -1,14 +1,14 @@
 function getInfo(){
-    requisicao("../../getRelatorioLanches", getRelLanches);
-    requisicao("../../getRelatorioBebidas", getRelBebidas);
-    requisicao("../../getRelatorioGastos", getRelGastos);
+    requisicao("/getRelatorioLanches", getRelLanches);
+    requisicao("/getRelatorioBebidas", getRelBebidas);
+    requisicao("/getRelatorioGastos", getRelGastos);
 }
 
 function getRelLanches(resposta){
 
     if(resposta.srcElement.responseText.includes("erro")){
         window.location.replace("../login/login_Funcionario.html?Action=TokenError");
-    } 
+    }
     else {
         dados = JSON.parse(resposta.srcElement.responseText);
         attRelatorioLanches(dados);
@@ -32,7 +32,7 @@ function getRelBebidas(resposta){
 
     if(resposta.srcElement.responseText.includes("erro")){
         window.location.replace("../login/login_Funcionario.html?Action=TokenError");
-    } 
+    }
     else {
         dados = JSON.parse(resposta.srcElement.responseText);
         attRelatorioBebidas(dados);
@@ -56,7 +56,7 @@ function getRelGastos(resposta){
 
     if(resposta.srcElement.responseText.includes("erro")){
         window.location.replace("../login/login_Funcionario.html?Action=TokenError");
-    } 
+    }
     else {
         dados = JSON.parse(resposta.srcElement.responseText);
         attRelatorioGastos(dados);

@@ -2,127 +2,127 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>cadastro</servlet-name>
-        <servlet-class>Controllers.cadastro</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.cadastro</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>tabela</servlet-name>
-        <servlet-class>Controllers.tabela</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.tabela</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>login</servlet-name>
-        <servlet-class>Controllers.login</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>salvarIngrediente</servlet-name>
-        <servlet-class>Controllers.salvarIngrediente</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.salvarIngrediente</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>salvarBebida</servlet-name>
-        <servlet-class>Controllers.salvarBebida</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.salvarBebida</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>loginFuncionario</servlet-name>
-        <servlet-class>Controllers.loginFuncionario</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.loginFuncionario</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>getIngredientes</servlet-name>
-        <servlet-class>Controllers.getIngredientes</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.getIngredientes</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>logout</servlet-name>
-        <servlet-class>Controllers.logout</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.logout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>getBebidas</servlet-name>
-        <servlet-class>Controllers.getBebidas</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.getBebidas</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>alterarIngrediente</servlet-name>
-        <servlet-class>Controllers.alterarIngrediente</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.alterarIngrediente</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>alterarBebida</servlet-name>
-        <servlet-class>Controllers.alterarBebida</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.alterarBebida</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>removerIngrediente</servlet-name>
-        <servlet-class>Controllers.removerIngrediente</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.removerIngrediente</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>removerBebida</servlet-name>
-        <servlet-class>Controllers.removerBebida</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.removerBebida</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>getLanches</servlet-name>
-        <servlet-class>Controllers.getLanches</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.getLanches</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>getLanchesCliente</servlet-name>
-        <servlet-class>Controllers.getLanchesCliente</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.getLanchesCliente</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>validarToken</servlet-name>
-        <servlet-class>Controllers.validarToken</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.validarToken</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>getBebidasCliente</servlet-name>
-        <servlet-class>Controllers.getBebidasCliente</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.getBebidasCliente</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>validarTokenFunc</servlet-name>
-        <servlet-class>Controllers.validarTokenFunc</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.validarTokenFunc</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>salvarLanche</servlet-name>
-        <servlet-class>Controllers.salvarLanche</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.salvarLanche</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>getIngredientesPorLanche</servlet-name>
-        <servlet-class>Controllers.getIngredientesPorLanche</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.getIngredientesPorLanche</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>getIngredientesPorLancheCliente</servlet-name>
-        <servlet-class>Controllers.getIngredientesPorLancheCliente</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.getIngredientesPorLancheCliente</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>getCliente</servlet-name>
-        <servlet-class>Controllers.getCliente</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.getCliente</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>comprar</servlet-name>
-        <servlet-class>Controllers.comprar</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.comprar</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>getRelatorioBebidas</servlet-name>
-        <servlet-class>Controllers.getRelatorioBebidas</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.getRelatorioBebidas</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>getRelatorioGastos</servlet-name>
-        <servlet-class>Controllers.getRelatorioGastos</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.getRelatorioGastos</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>getRelatorioLanches</servlet-name>
-        <servlet-class>Controllers.getRelatorioLanches</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.getRelatorioLanches</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>getIngredientesCliente</servlet-name>
-        <servlet-class>Controllers.getIngredientesCliente</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.getIngredientesCliente</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>salvarLancheCliente</servlet-name>
-        <servlet-class>Controllers.salvarLancheCliente</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.salvarLancheCliente</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>salvarFuncionario</servlet-name>
-        <servlet-class>Controllers.salvarFuncionario</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.salvarFuncionario</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>alterarStatusLanchonete</servlet-name>
-        <servlet-class>Controllers.alterarStatusLanchonete</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.alterarStatusLanchonete</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>getStatusLanchonete</servlet-name>
-        <servlet-class>Controllers.getStatusLanchonete</servlet-class>
+        <servlet-class>com.lanchonete.Controllers.getStatusLanchonete</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>cadastro</servlet-name>

@@ -24,7 +24,9 @@ services:
     depends_on:
       db:
         condition: service_healthy
+
+    # Talvez remover essas variaveis pois não é um porjeto Spring, e acho que estão sendo ignoradas
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/lanchonete
       - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=postgres 
+      - SPRING_DATASOURCE_PASSWORD=postgres

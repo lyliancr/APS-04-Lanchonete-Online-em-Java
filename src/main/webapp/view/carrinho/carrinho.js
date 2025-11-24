@@ -1,5 +1,5 @@
 function validarToken(){
-    requisicao("../../validarToken", check)
+    requisicao("/validarToken", check)
 }
 
 function check(resposta){
@@ -111,13 +111,13 @@ function showConteudo2(){
 }
 
 function getUsuario(){
-    requisicao("../../getCliente", setUsuarioInfo);
+    requisicao("/getCliente", setUsuarioInfo);
 }
 
 function setUsuarioInfo(resposta){
     if(resposta.srcElement.responseText.includes("erro")){
         window.location.replace("../login/login.html?Action=TokenError");
-    } 
+    }
     else {
         let dadosCliente = JSON.parse(resposta.srcElement.responseText);
         let nome = dadosCliente[0]['nome']+" "+dadosCliente[0]['sobrenome'];
@@ -142,7 +142,7 @@ function setUsuarioInfo(resposta){
 }
 
 function logout(){
-    requisicao("../../logout", deslogar)
+    requisicao("/logout", deslogar)
     deleteAllCookies();
     sessionStorage.clear();
 }
@@ -172,7 +172,7 @@ function textoResumo() {
 
 function realizarCompra(){
     console.log(dados);
-    requisicao("../../comprar", resolver, JSON.stringify(dados));
+    requisicao("/comprar", resolver, JSON.stringify(dados));
 }
 
 function resolver(resposta){
